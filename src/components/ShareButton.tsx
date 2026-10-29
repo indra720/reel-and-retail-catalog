@@ -38,7 +38,7 @@ export function ShareButton({ product, className }: { product: Product; classNam
         document.execCommand("copy");
         textarea.remove();
       }
-      toast.success("Link copied", { description: `${product.name} · #${product.id}` });
+      toast.success("Link copied to clipboard", { description: `${product.name} · #${product.id}` });
     } catch {
       toast.error("Couldn't copy the link — please copy it from the address bar.");
     }
@@ -51,11 +51,11 @@ export function ShareButton({ product, className }: { product: Product; classNam
         onClick={onShare}
         aria-label={`Share ${product.name}`}
         className={cn(
-          "glass group inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:shadow-glow",
+          "group inline-flex items-center gap-2 rounded-full border border-stone-200/90 bg-white/95 px-4 py-2 text-xs md:text-sm font-semibold text-stone-700 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-stone-400 hover:text-stone-900 hover:shadow-sm cursor-pointer",
           className,
         )}
       >
-        <Share2 size={16} className="transition-transform duration-300 group-hover:rotate-12" />
+        <Share2 size={15} className="transition-transform duration-300 group-hover:rotate-12 text-stone-600 group-hover:text-stone-900" />
         Share
       </button>
     </Magnetic>

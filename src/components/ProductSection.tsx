@@ -1,56 +1,40 @@
-import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
-
 import type { Product } from "@/data/catalog";
 
 import { MediaCarousel } from "./MediaCarousel";
 import { ProductDetails } from "./ProductDetails";
 import { ShareButton } from "./ShareButton";
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.09 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
-
 export function ProductSection({ product }: { product: Product }) {
   return (
-    <section id={product.id} className="scroll-mt-28 py-10 md:py-16">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <motion.div variants={item} className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-cyan-glow">
-              Product {product.index}
-            </p>
-            <h2 className="text-gradient font-display mt-2 text-2xl font-bold tracking-tight md:text-4xl">
-              {product.name}
-            </h2>
-            <p className="mt-1.5 max-w-xl text-sm text-muted-foreground md:text-base">
-              {product.subtitle}
-            </p>
-          </motion.div>
-          <motion.div variants={item} className="shrink-0 pt-1">
-            <ShareButton product={product} />
-          </motion.div>
+    <section
+      id={product.id}
+      className="scroll-mt-28 py-4 sm:py-6 border-b border-[#E8E2D8] last:border-0"
+    >
+      {/* Top Header Row matching wireframe: Product No. - 1 ( Name ) ---------- Share */}
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5">
+        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2.5">
+          <h2 className="font-serif text-base sm:text-xl lg:text-2xl font-bold tracking-tight text-stone-900">
+            Product No. - {product.index} ({product.name})
+          </h2>
+          <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#9C733E]">
+            · {product.category.toUpperCase()}
+          </span>
         </div>
 
-        <motion.div variants={item} className="mt-7">
-          <MediaCarousel media={product.media} />
-        </motion.div>
+        <div className="shrink-0">
+          <ShareButton product={product} />
+        </div>
+      </div>
 
-        <motion.div variants={item}>
-          <ProductDetails product={product} />
-        </motion.div>
-      </motion.div>
+      {/* Media Carousel (PICS & VIDEOS): 4-Card Auto-sliding */}
+      <div className="mt-1">
+        <MediaCarousel media={product.media} />
+      </div>
+
+      {/* Details Block: Price, Description, MOQ, Facility Line, WhatsApp Icon */}
+      <div>
+        <ProductDetails product={product} />
+      </div>
     </section>
   );
 }

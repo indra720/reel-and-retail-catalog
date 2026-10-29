@@ -6,35 +6,41 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 border-t border-border/60">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3 md:px-8">
+    <footer className="relative z-10 border-t border-stone-200 bg-stone-100/70">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 md:px-8">
         <div>
-          <p className="font-display text-xl font-bold tracking-tight">{BUSINESS.name}</p>
-          <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            {BUSINESS.tagline}. Curated pieces delivered across India since {BUSINESS.established}.
+          <p className="font-display text-2xl font-bold tracking-tight text-stone-900">{BUSINESS.name}</p>
+          <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-stone-600">
+            {BUSINESS.tagline}. Handcrafted pieces and architectural decor delivered across India since {BUSINESS.established}.
           </p>
         </div>
 
-        <div className="space-y-2.5 text-sm text-muted-foreground">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">
-            Contact
+        <div className="space-y-3 text-sm text-stone-600">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-stone-900">
+            Showroom & Inquiries
           </p>
-          <p className="flex items-start gap-2">
-            <MapPin size={15} className="mt-0.5 shrink-0" />
-            {BUSINESS.address}
+          <p className="flex items-start gap-2.5">
+            <MapPin size={16} className="mt-0.5 shrink-0 text-amber-700" />
+            <span>{BUSINESS.address}</span>
           </p>
-          <a href={`tel:${BUSINESS.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 transition-colors hover:text-foreground">
-            <Phone size={15} className="shrink-0" />
-            {BUSINESS.phone}
+          <a
+            href={`tel:${BUSINESS.phone.replace(/\s/g, "")}`}
+            className="flex items-center gap-2.5 font-medium transition-colors hover:text-stone-900"
+          >
+            <Phone size={16} className="shrink-0 text-amber-700" />
+            <span>{BUSINESS.phone}</span>
           </a>
-          <a href={`mailto:${BUSINESS.email}`} className="flex items-center gap-2 transition-colors hover:text-foreground">
-            <Mail size={15} className="shrink-0" />
-            {BUSINESS.email}
+          <a
+            href={`mailto:${BUSINESS.email}`}
+            className="flex items-center gap-2.5 font-medium transition-colors hover:text-stone-900"
+          >
+            <Mail size={16} className="shrink-0 text-amber-700" />
+            <span>{BUSINESS.email}</span>
           </a>
         </div>
 
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/80">Follow</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-stone-900">Connect With Us</p>
           <div className="mt-3 flex items-center gap-3">
             {[
               { href: BUSINESS.social.instagram, label: "Instagram", icon: Instagram },
@@ -48,7 +54,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="glass flex h-10 w-10 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 hover:-translate-y-1 hover:text-foreground hover:shadow-glow"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200/90 bg-white text-stone-600 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-stone-400 hover:text-stone-900 hover:shadow-md"
               >
                 <Icon size={17} />
               </a>
@@ -57,12 +63,10 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-border/50">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-muted-foreground sm:flex-row md:px-8">
-          <p>
-            © {year} {BUSINESS.name}. All rights reserved.
-          </p>
-          <p>Demo catalog — business details & WhatsApp number live in one config file.</p>
+      <div className="border-t border-stone-200/80 bg-stone-200/40">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs font-medium text-stone-600 sm:flex-row md:px-8">
+          <p>© {year} {BUSINESS.name}. All rights reserved.</p>
+          <p>Curated Luxury Wholesale & Retail Catalog</p>
         </div>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { PackageSearch } from "lucide-react";
 import { useState } from "react";
 
@@ -14,17 +14,17 @@ import { CATEGORIES, PRODUCTS, type CategoryId } from "@/data/catalog";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LUMINA Living — Premium 3D Product Catalog" },
+      { title: "LUMINA Living — Luxury Product Catalog" },
       {
         name: "description",
         content:
-          "Cinematic animated catalog of premium lighting, furniture, decor and textiles for homes, hotels & facilities — with instant WhatsApp inquiries.",
+          "Curated catalog of premium lighting, furniture, decor and textiles for homes, hotels & facilities — with direct WhatsApp inquiries.",
       },
-      { property: "og:title", content: "LUMINA Living — Premium 3D Product Catalog" },
+      { property: "og:title", content: "LUMINA Living — Luxury Product Catalog" },
       {
         property: "og:description",
         content:
-          "Cinematic animated catalog of premium lighting, furniture, decor and textiles for homes, hotels & facilities.",
+          "Curated catalog of premium lighting, furniture, decor and textiles for homes, hotels & facilities.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -35,55 +35,35 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [category, setCategory] = useState<CategoryId>("all");
+
   const products =
     category === "all" ? PRODUCTS : PRODUCTS.filter((product) => product.category === category);
 
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-background">
+    <div className="relative min-h-screen overflow-x-clip bg-[#F8F5F0]">
       <BackgroundFX />
       <Header />
 
-      <main className="relative z-10 mx-auto max-w-6xl px-4 pb-24 pt-6 md:px-8 md:pt-10">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-2 flex flex-wrap items-end justify-between gap-4"
-        >
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-cyan-glow">
-              Collection 2026
-            </p>
-            <h2 className="text-gradient font-display mt-2 text-3xl font-bold tracking-tight md:text-5xl">
-              The Catalog
-            </h2>
+      <main className="relative z-10 mx-auto max-w-[1400px] px-4 pb-20 pt-4 sm:px-6 lg:px-8">
+        {/* Category Navigation Bar matching Wireframe: Category : [ ] [ ] [ ] [ ] */}
+        <div className="flex flex-wrap items-center gap-3 border-b border-[#E8E2D8] pb-3 mb-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-stone-500">
+            Category :
+          </span>
+          <CategoryNav categories={CATEGORIES} active={category} onChange={setCategory} />
+        </div>
+
+        {/* Vertical Stack of Products (Up & Down Scroll as in wireframe) */}
+        {products.length > 0 ? (
+          <div className="space-y-4">
+            {products.map((product) => (
+              <ProductSection key={product.id} product={product} />
+            ))}
           </div>
-          <p className="max-w-xs pb-1 text-sm text-muted-foreground">
-            Scroll through each piece — every gallery plays photos and videos on its own.
-          </p>
-        </motion.div>
-
-        <CategoryNav categories={CATEGORIES} active={category} onChange={setCategory} />
-
-        <AnimatePresence mode="popLayout">
-          {products.map((product) => (
-            <motion.div
-              key={product.id}
-              layout
-              initial={{ opacity: 0, y: 40, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.25 } }}
-              transition={{ type: "spring", stiffness: 120, damping: 20 }}
-            >
-              <ProductSection product={product} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-
-        {products.length === 0 && (
-          <div className="flex flex-col items-center gap-3 py-24 text-muted-foreground">
-            <PackageSearch size={32} />
-            <p className="text-sm">No products in this category yet.</p>
+        ) : (
+          <div className="flex flex-col items-center gap-3 py-16 text-stone-500">
+            <PackageSearch size={36} className="text-stone-400" />
+            <p className="text-sm font-medium">No pieces found in this category.</p>
           </div>
         )}
       </main>

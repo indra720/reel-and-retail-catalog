@@ -12,8 +12,8 @@ export function CategoryNav({
   onChange: (id: CategoryId) => void;
 }) {
   return (
-    <div className="no-scrollbar -mx-4 overflow-x-auto px-4 pb-1 md:-mx-8 md:px-8">
-      <div className="flex w-max items-center gap-2 py-2">
+    <div className="no-scrollbar overflow-x-auto py-1">
+      <div className="flex w-max items-center gap-2">
         {categories.map((category) => {
           const isActive = category.id === active;
           return (
@@ -23,17 +23,17 @@ export function CategoryNav({
               onClick={() => onChange(category.id)}
               aria-pressed={isActive}
               className={cn(
-                "relative rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200",
+                "relative rounded-full px-4.5 py-1.5 text-xs md:text-sm font-semibold transition-all duration-200 cursor-pointer",
                 isActive
-                  ? "text-foreground"
-                  : "glass text-muted-foreground hover:-translate-y-0.5 hover:text-foreground hover:shadow-glow",
+                  ? "text-white shadow-xs"
+                  : "bg-white/90 text-stone-600 border border-[#E8E2D8] hover:border-amber-400 hover:text-stone-900 shadow-xs",
               )}
             >
               {isActive && (
                 <motion.span
                   layoutId="category-active-pill"
-                  className="pill-active absolute inset-0 rounded-full"
-                  transition={{ type: "spring", stiffness: 320, damping: 30 }}
+                  className="absolute inset-0 rounded-full bg-stone-900 shadow-xs"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 />
               )}
               <span className="relative z-10">{category.label}</span>

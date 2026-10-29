@@ -29,12 +29,12 @@ export function WhatsAppButton({
         whileHover={{ y: -2 }}
         whileTap={{ scale: 0.97 }}
         className={cn(
-          "inline-flex items-center gap-2.5 rounded-full bg-whatsapp px-5 py-2.5 text-sm font-semibold text-whatsapp-foreground shadow-[0_10px_30px_-10px_var(--whatsapp)] transition-shadow duration-200 hover:shadow-[0_14px_40px_-8px_var(--whatsapp)]",
+          "inline-flex items-center gap-2.5 rounded-full bg-[#25D366] px-5 py-3 text-sm font-bold text-white shadow-[0_8px_25px_-6px_rgba(37,211,102,0.6)] transition-all duration-200 hover:bg-[#22c55e] hover:shadow-[0_12px_32px_-6px_rgba(37,211,102,0.7)] cursor-pointer",
           className,
         )}
       >
-        <WhatsAppIcon className="h-4.5 w-4.5" />
-        {label}
+        <WhatsAppIcon className="h-5 w-5 text-white" />
+        <span>{label}</span>
       </motion.a>
     </Magnetic>
   );
@@ -52,15 +52,15 @@ export function FloatingWhatsApp() {
       initial={{ opacity: 0, scale: 0.4 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.9, type: "spring", stiffness: 260, damping: 18 }}
-      className="group fixed bottom-5 right-5 z-50"
+      className="group fixed bottom-6 right-6 z-50 cursor-pointer"
     >
-      <span aria-hidden className="absolute inset-0 animate-pulse-ring rounded-full bg-whatsapp/50" />
+      <span aria-hidden className="absolute inset-0 animate-pulse-ring rounded-full bg-emerald-500/40" />
       <span
         aria-hidden
-        className="absolute inset-0 animate-pulse-ring rounded-full bg-whatsapp/30 [animation-delay:1.2s]"
+        className="absolute inset-0 animate-pulse-ring rounded-full bg-emerald-400/25 [animation-delay:1.2s]"
       />
-      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lift transition-transform duration-300 group-hover:scale-110">
-        <WhatsAppIcon className="h-7 w-7" />
+      <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition-transform duration-300 group-hover:scale-110">
+        <WhatsAppIcon className="h-7 w-7 text-white" />
       </span>
     </motion.a>
   );
