@@ -1,0 +1,222 @@
+// ============================================================
+// CENTRAL CATALOG CONFIG
+// Everything business-specific lives here. Update this one file
+// to make the site yours — no other code needs to change.
+// ============================================================
+
+export const BUSINESS = {
+  // PLACEHOLDER — replace with the real WhatsApp number in E.164 digits
+  // only (country code + number, no "+", no spaces). e.g. "919876543210"
+  whatsappNumber: "91XXXXXXXXXX",
+  name: "LUMINA Living",
+  tagline: "Premium Collections for Homes, Hotels & Facilities",
+  address: "Shop 14, Trade Crest, MG Road, Indore, MP 452001",
+  phone: "+91 98765 43210",
+  email: "hello@luminaliving.in",
+  established: "2016",
+  social: {
+    instagram: "https://instagram.com/luminaliving",
+    facebook: "https://facebook.com/luminaliving",
+    youtube: "https://youtube.com/@luminaliving",
+  },
+};
+
+/** How long each IMAGE slide stays on screen before auto-advancing. */
+export const MEDIA_CONFIG = {
+  imageIntervalMs: 4500, // 4–5s — change to taste
+};
+
+export type MediaItem =
+  | { type: "image"; src: string; alt: string }
+  | { type: "video"; src: string; poster: string; alt: string };
+
+export type CategoryId = "all" | "lighting" | "furniture" | "decor" | "textiles";
+
+export const CATEGORIES: { id: CategoryId; label: string }[] = [
+  { id: "all", label: "All Collections" },
+  { id: "lighting", label: "Lighting" },
+  { id: "furniture", label: "Furniture" },
+  { id: "decor", label: "Decor" },
+  { id: "textiles", label: "Textiles" },
+];
+
+export type Product = {
+  id: string; // anchor id, e.g. "product-01"
+  index: string; // display number, e.g. "01"
+  name: string;
+  subtitle: string;
+  category: Exclude<CategoryId, "all">;
+  price: string;
+  priceNote: string;
+  moq: string;
+  description: string;
+  features: string[];
+  facilitiesLine: string;
+  media: MediaItem[];
+};
+
+const img = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
+const poster = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=70`;
+
+// Sample MP4s (free stock) + matching poster stills.
+const V_BUNNY_2 = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_2MB.mp4";
+const V_BUNNY_5 = "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4";
+const V_JELLY_2 = "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_2MB.mp4";
+const V_JELLY_5 = "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_5MB.mp4";
+const V_SINTEL = "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_2MB.mp4";
+const V_FLOWER = "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4";
+
+export const PRODUCTS: Product[] = [
+  {
+    id: "product-01",
+    index: "01",
+    name: "Aurora Halo Pendant",
+    subtitle: "Sculptural layered-glass chandelier with dimmable halo core",
+    category: "lighting",
+    price: "₹12,499",
+    priceNote: "per unit · incl. GST",
+    moq: "MOQ 10 pieces",
+    description:
+      "The Aurora Halo Pendant is our signature statement light — three hand-blown glass rings suspended around a dimmable LED halo that shifts from warm amber to cool moonlit white. Each piece is assembled and balanced by hand, so the cascade hangs perfectly true the moment it leaves the box.",
+    features: [
+      "Hand-blown borosilicate glass rings",
+      "Dimmable 2700K–6000K LED core (remote included)",
+      "Adjustable drop height up to 1.8 m",
+      "Brushed brass or matte black canopy",
+      "2-year onsite warranty",
+    ],
+    facilitiesLine: "Also available for hotels & facilities",
+    media: [
+      { type: "image", src: img("photo-1507473885765-e6ed057f782c"), alt: "Aurora Halo Pendant glowing over a dining table" },
+      { type: "video", src: V_BUNNY_2, poster: poster("photo-1513506003901-1e6a229e2d15"), alt: "Halo light sequence in motion" },
+      { type: "image", src: img("photo-1616594039964-ae9021a400a0"), alt: "Pendant detail against a dark wall" },
+      { type: "video", src: V_JELLY_2, poster: poster("photo-1524758631624-e2822e304c36"), alt: "Ambient installation footage" },
+      { type: "image", src: img("photo-1513506003901-1e6a229e2d15"), alt: "Warm evening mood lighting" },
+      { type: "video", src: V_SINTEL, poster: poster("photo-1616486338812-3dadae4b4ace"), alt: "Showroom walkthrough clip" },
+    ],
+  },
+  {
+    id: "product-02",
+    index: "02",
+    name: "Cloud Nine Modular Sofa",
+    subtitle: "Deep-seat modular lounge in feather-touch performance bouclé",
+    category: "furniture",
+    price: "₹89,999",
+    priceNote: "3-seat configuration",
+    moq: "MOQ 5 units",
+    description:
+      "Cloud Nine is built around a kiln-dried hardwood frame and dual-density foam wrapped in a feather-blend topper — the sink-in feel of a hotel lobby sofa that still keeps its shape after years of daily use. Rearrange the modules into a chaise, a corner pit or a full theatre layout without tools.",
+    features: [
+      "Kiln-dried hardwood frame, 10-year structural warranty",
+      "Removable, washable performance bouclé covers",
+      "Tool-free modular reconfiguration",
+      "Stain-guard treated upholstery",
+      "Available in 6 weaves & 14 colours",
+    ],
+    facilitiesLine: "Also available for hotels & facilities",
+    media: [
+      { type: "image", src: img("photo-1555041469-a586c61ea9bc"), alt: "Cloud Nine sofa in a bright living room" },
+      { type: "video", src: V_JELLY_5, poster: poster("photo-1493663284031-b7e3aefcae8e"), alt: "Fabric texture close-up footage" },
+      { type: "image", src: img("photo-1493809842364-78817add7ffb"), alt: "Modular corner configuration" },
+      { type: "video", src: V_BUNNY_2, poster: poster("photo-1524758631624-e2822e304c36"), alt: "Showroom lounge clip" },
+      { type: "image", src: img("photo-1493663284031-b7e3aefcae8e"), alt: "Bouclé weave detail" },
+    ],
+  },
+  {
+    id: "product-03",
+    index: "03",
+    name: "Obsidian Accent Chair",
+    subtitle: "Sculpted shell chair with smoked-glass lacquer finish",
+    category: "furniture",
+    price: "₹34,500",
+    priceNote: "per unit",
+    moq: "MOQ 8 pieces",
+    description:
+      "A single-piece moulded shell finished in seven layers of smoked lacquer, polished to a wet-look sheen. The Obsidian pairs with dining tables, reading corners and reception desks alike, and its high-gloss surface wipes clean in seconds — a favourite for high-traffic lobbies.",
+    features: [
+      "Seven-layer hand-polished lacquer shell",
+      "Powder-coated steel swivel base",
+      "Full 360° return-memory swivel",
+      "High-density seat core, no sag guarantee",
+      "Indoor & covered-outdoor rated",
+    ],
+    facilitiesLine: "Also available for hotels & facilities",
+    media: [
+      { type: "image", src: img("photo-1567538096630-e0c55bd6374c"), alt: "Obsidian chair in a styled room" },
+      { type: "video", src: V_BUNNY_5, poster: poster("photo-1586023492125-27b2c045efd7"), alt: "Swivel motion demonstration" },
+      { type: "image", src: img("photo-1522708323590-d24dbb6b0267"), alt: "Chair beside a lounge window" },
+      { type: "video", src: V_FLOWER, poster: poster("photo-1616486338812-3dadae4b4ace"), alt: "Gloss finish highlight reel" },
+    ],
+  },
+  {
+    id: "product-04",
+    index: "04",
+    name: "Nimbus Silk Bedding Set",
+    subtitle: "22-momme mulberry silk sheets with cooling weave",
+    category: "textiles",
+    price: "₹18,999",
+    priceNote: "king size · 5-piece set",
+    moq: "MOQ 20 sets",
+    description:
+      "Woven from 22-momme mulberry silk with a matte sateen face, the Nimbus set feels cool on contact and regulates through the night — the same spec we supply to boutique resort suites. Channels are double-stitched, and the fitted sheet pockets up to 40 cm mattresses.",
+    features: [
+      "100% Grade-6A mulberry silk, 22 momme",
+      "OEKO-TEX certified, skin-safe dyes",
+      "Deep-pocket fitted sheet (up to 40 cm)",
+      "Naturally hypoallergenic & dust-mite resistant",
+      "Matching shams & runner included",
+    ],
+    facilitiesLine: "Also available for hotels & facilities",
+    media: [
+      { type: "image", src: img("photo-1505693416388-ac5ce068fe85"), alt: "Nimbus silk bedding on a made bed" },
+      { type: "video", src: V_JELLY_2, poster: poster("photo-1538688525198-9b88f6f53126"), alt: "Silk drape movement footage" },
+      { type: "image", src: img("photo-1538688525198-9b88f6f53126"), alt: "Styled suite bedroom" },
+      { type: "video", src: V_SINTEL, poster: poster("photo-1567016432779-094069958ea5"), alt: "Resort suite walkthrough" },
+      { type: "image", src: img("photo-1567016432779-094069958ea5"), alt: "Pillow & sham detail" },
+    ],
+  },
+  {
+    id: "product-05",
+    index: "05",
+    name: "Prism Glass Vase Trio",
+    subtitle: "Faceted crystal vases with refractive prism base",
+    category: "decor",
+    price: "₹6,750",
+    priceNote: "set of 3",
+    moq: "MOQ 24 sets",
+    description:
+      "Cut from lead-free crystal, each Prism vase bends candlelight and daylight into soft rainbows across your table. The trio nests as a centrepiece or scatters as accents, and every base is ground flat so glass never rings or scratches the surface beneath.",
+    features: [
+      "Lead-free hand-cut crystal",
+      "Flat-ground, scratch-free bases",
+      "Three heights: 18 / 26 / 34 cm",
+      "Gift-boxed with velvet liners",
+      "Dishwasher-safe (top rack)",
+    ],
+    facilitiesLine: "Also available for hotels & facilities",
+    media: [
+      { type: "image", src: img("photo-1416879595882-3373a0480b5b"), alt: "Prism vases with fresh stems" },
+      { type: "video", src: V_FLOWER, poster: poster("photo-1543198126-a8ad8e47fb22"), alt: "Light refraction through crystal" },
+      { type: "image", src: img("photo-1543198126-a8ad8e47fb22"), alt: "Trio on a console table" },
+      { type: "video", src: V_BUNNY_2, poster: poster("photo-1513694203232-719a280e022f"), alt: "Styling ideas clip" },
+      { type: "image", src: img("photo-1513694203232-719a280e022f"), alt: "Vases in a styled interior" },
+      { type: "video", src: V_JELLY_5, poster: poster("photo-1524758631624-e2822e304c36"), alt: "Gift packaging reveal" },
+    ],
+  },
+];
+
+// ---------- helpers used across components ----------
+
+/** Anchor URL for a product, e.g. https://site.com/#product-01 */
+export function productShareUrl(product: Product): string {
+  if (typeof window === "undefined") return `#${product.id}`;
+  return `${window.location.origin}${window.location.pathname}#${product.id}`;
+}
+
+export function productInquiryMessage(product: Product): string {
+  return `Hi ${BUSINESS.name}! I'm interested in *${product.name}* (${product.price}). Please share catalogue, MOQ and delivery details.`;
+}
+
+export function buildWhatsAppLink(text: string): string {
+  return `https://wa.me/${BUSINESS.whatsappNumber}?text=${encodeURIComponent(text)}`;
+}
