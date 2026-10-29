@@ -11,7 +11,7 @@ import {
 
 describe("Catalog config rules", () => {
   it("builds WhatsApp links from the configured number with the encoded inquiry", () => {
-    const product = PRODUCTS[0];
+    const product = PRODUCTS[0]!;
     const link = buildWhatsAppLink(productInquiryMessage(product));
     expect(link).toContain(`https://wa.me/${BUSINESS.whatsappNumber}?text=`);
     expect(link).toContain(encodeURIComponent(product.name));

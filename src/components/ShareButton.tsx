@@ -1,5 +1,5 @@
 import { Share2 } from "lucide-react";
-import toast from "sonner";
+import { toast } from "sonner";
 
 import { BUSINESS, productShareUrl, type Product } from "@/data/catalog";
 import { cn } from "@/lib/utils";

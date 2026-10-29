@@ -130,7 +130,7 @@ export function MediaCarousel({ media }: { media: MediaItem[] }) {
   const wasPlayingRef = useRef(false);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
-  const active = media[index];
+  const active = media[index]!;
   const activeType = active.type;
 
   const step = useCallback(
@@ -455,14 +455,14 @@ export function MediaCarousel({ media }: { media: MediaItem[] }) {
       onPointerMove={onTiltMove}
       onPointerLeave={onTiltLeave}
       onTouchStart={(e) => {
-        const touch = e.touches[0];
+        const touch = e.touches[0]!;
         touchStartRef.current = { x: touch.clientX, y: touch.clientY };
       }}
       onTouchEnd={(e) => {
         const start = touchStartRef.current;
         touchStartRef.current = null;
         if (!start) return;
-        const touch = e.changedTouches[0];
+        const touch = e.changedTouches[0]!;
         const dx = touch.clientX - start.x;
         const dy = touch.clientY - start.y;
         if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) {
@@ -479,7 +479,7 @@ export function MediaCarousel({ media }: { media: MediaItem[] }) {
         {/* Desktop: unified 4-panel cinematic layout */}
         <div className="hidden h-[480px] grid-cols-[0.62fr_2.15fr_1.05fr_0.75fr] items-stretch gap-3 md:grid lg:h-[560px]">
           <PreviewPanel
-            item={prev}
+            item={prev!}
             onClick={() => step(-1)}
             label="Previous media"
             className="h-full"
@@ -487,14 +487,14 @@ export function MediaCarousel({ media }: { media: MediaItem[] }) {
           />
           {stage("h-full")}
           <PreviewPanel
-            item={next}
+            item={next!}
             onClick={() => step(1)}
             label="Next media"
             className="h-full"
             style={{ transform: "perspective(1000px) rotateY(-9deg) scale(0.95)", opacity: 0.75 }}
           />
           <PreviewPanel
-            item={next2}
+            item={next2!}
             onClick={() => goTo(index + 2)}
             label="Jump two ahead"
             className="h-full"
@@ -506,9 +506,9 @@ export function MediaCarousel({ media }: { media: MediaItem[] }) {
         <div className="md:hidden">
           {stage("h-[320px]")}
           <div className="mt-2 grid h-20 grid-cols-3 gap-2">
-            <PreviewPanel item={prev} onClick={() => step(-1)} label="Previous media" mini />
-            <PreviewPanel item={next} onClick={() => step(1)} label="Next media" mini />
-            <PreviewPanel item={next2} onClick={() => goTo(index + 2)} label="Jump two ahead" mini />
+            <PreviewPanel item={prev!} onClick={() => step(-1)} label="Previous media" mini />
+            <PreviewPanel item={next!} onClick={() => step(1)} label="Next media" mini />
+            <PreviewPanel item={next2!} onClick={() => goTo(index + 2)} label="Jump two ahead" mini />
           </div>
         </div>
       </div>
