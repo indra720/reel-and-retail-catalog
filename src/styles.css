@@ -43,6 +43,7 @@
   --color-violet-glow: var(--violet-glow);
   --color-cyan-glow: var(--cyan-glow);
   --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
 
   /* Typography */
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -248,4 +249,15 @@
     linear-gradient(90deg, oklch(1 0 0 / 0.035) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 25%, transparent 80%);
+}
+
+/* Respect reduced motion: drop decorative animation, keep functionality */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-a,
+  .animate-float-b,
+  .animate-float-c,
+  .animate-spin-slow,
+  .animate-pulse-ring {
+    animation: none;
+  }
 }
