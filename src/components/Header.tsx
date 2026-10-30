@@ -59,24 +59,42 @@ export function Header() {
     );
   }, []);
 
+  // 1. Flexible Address: Shop, Hotel, or both
+  const addresses: { label: string; address: string }[] = [];
+  if (BUSINESS.address) {
+    addresses.push({ label: BUSINESS.addressLabel || "Shop", address: BUSINESS.address });
+  }
+  if (BUSINESS.hotelAddress) {
+    addresses.push({ label: BUSINESS.hotelAddressLabel || "Hotel", address: BUSINESS.hotelAddress });
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-[#E8E2D8] bg-[#FBF9F5]/95 backdrop-blur-md shadow-xs">
-      <div className="mx-auto max-w-[1440px] px-3.5 py-2.5 sm:px-6 sm:py-3 lg:px-8">
+      <div className="mx-auto max-w-[1500px] px-3.5 py-2 sm:px-5 sm:py-2.5 lg:px-5">
         {/* Main Row */}
         <div className="flex items-center justify-between gap-3">
-          {/* Logo */}
+          {/* Logo & Desktop Addresses */}
           <div className="flex items-center gap-5">
             <LuxuryLogo />
-            <div className="hidden border-l border-stone-300/60 pl-5 lg:block">
-              <p className="flex items-center gap-1.5 text-xs text-stone-600">
-                <MapPin size={12} className="shrink-0 text-amber-700" />
-                <span className="truncate max-w-xs">{BUSINESS.address}</span>
-              </p>
-              <p className="mt-0.5 flex items-center gap-1.5 text-xs text-stone-600">
-                <Phone size={12} className="shrink-0 text-amber-700" />
-                <span>{BUSINESS.phone}</span>
-              </p>
-            </div>
+
+            {/* Desktop: Small label chips before each address on separate lines */}
+            {addresses.length > 0 && (
+              <div className="hidden border-l border-stone-300/60 pl-4 lg:flex lg:flex-col lg:justify-center lg:gap-1">
+                {addresses.map((item, idx) => (
+                  <p key={idx} className="flex items-center gap-1.5 text-[11px] text-stone-600">
+                    <MapPin size={11} className="shrink-0 text-amber-700" />
+                    <span className="rounded bg-amber-100/90 px-1.5 py-0.2 text-[9px] font-bold uppercase tracking-wider text-amber-900 border border-amber-200/80">
+                      {item.label}
+                    </span>
+                    <span className="truncate max-w-sm">{item.address}</span>
+                  </p>
+                ))}
+                <p className="flex items-center gap-1.5 text-[11px] text-stone-600">
+                  <Phone size={11} className="shrink-0 text-amber-700" />
+                  <span>{BUSINESS.phone}</span>
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Desktop Right Side: 4 Social Links + Date Pill */}
@@ -108,8 +126,23 @@ export function Header() {
           </div>
         </div>
 
+        {/* Mobile Addresses: Small label chips on separate lines (compact on mobile) */}
+        {addresses.length > 0 && (
+          <div className="flex sm:hidden flex-col gap-1 border-t border-stone-200/60 pt-1.5 mt-1.5 text-[10px] text-stone-600">
+            {addresses.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-1.5 min-w-0">
+                <MapPin size={10} className="shrink-0 text-amber-700" />
+                <span className="shrink-0 rounded bg-amber-100/90 px-1.5 py-0.2 text-[9px] font-bold text-amber-900 border border-amber-200/70">
+                  {item.label}
+                </span>
+                <span className="truncate">{item.address}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Mobile Secondary Row: All 4 Social Links (including YouTube) + Clickable Phone */}
-        <div className="mt-2 flex sm:hidden items-center justify-between border-t border-stone-200/70 pt-2">
+        <div className="mt-1.5 flex sm:hidden items-center justify-between border-t border-stone-200/50 pt-1.5">
           <div className="flex items-center gap-2">
             <SocialLink href={BUSINESS.email ? `mailto:${BUSINESS.email}` : "#"} label="Email us">
               <Mail size={14} />

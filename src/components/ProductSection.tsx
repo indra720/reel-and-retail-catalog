@@ -8,10 +8,10 @@ export function ProductSection({ product }: { product: Product }) {
   return (
     <section
       id={product.id}
-      className="scroll-mt-28 py-4 sm:py-6 border-b border-[#E8E2D8] last:border-0"
+      className="scroll-mt-24 py-3 sm:py-4 border-b border-[#E8E2D8] last:border-0"
     >
       {/* Top Header Row matching wireframe: Product No. - 1 ( Name ) ---------- Share */}
-      <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-1.5">
         <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2.5">
           <h2 className="font-serif text-base sm:text-xl lg:text-2xl font-bold tracking-tight text-stone-900">
             Product No. - {product.index} ({product.name})

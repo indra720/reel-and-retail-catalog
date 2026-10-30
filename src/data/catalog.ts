@@ -10,7 +10,11 @@ export const BUSINESS = {
   whatsappNumber: "91XXXXXXXXXX",
   name: "LUMINA Living",
   tagline: "Premium Collections for Homes, Hotels & Facilities",
+  // Address config: flexible Shop, Hotel, or both
+  addressLabel: "Shop", // "Shop" or "Hotel"
   address: "Shop 14, Trade Crest, MG Road, Indore, MP 452001",
+  hotelAddressLabel: "Hotel",
+  hotelAddress: "Suites 4-6, Grand Palm Galleria, Vijay Nagar, Indore, MP 452010",
   phone: "+91 98765 43210",
   email: "hello@luminaliving.in",
   established: "2016",
@@ -52,6 +56,10 @@ export type Product = {
   description: string;
   features: string[];
   facilitiesLine: string;
+  // 7b. Hotel / Facility Pricing Options
+  hotelPriceExclusive?: string;
+  hotelPriceInclusive?: string;
+  hotelPriceNote?: string;
   media: MediaItem[];
 };
 
@@ -86,6 +94,9 @@ export const PRODUCTS: Product[] = [
       "2-year onsite warranty",
     ],
     facilitiesLine: "Also available for hotels & facilities",
+    hotelPriceExclusive: "₹9,800/unit",
+    hotelPriceInclusive: "₹11,564/unit",
+    hotelPriceNote: "Commercial pricing (20+ units)",
     media: [
       { type: "image", src: img("photo-1507473885765-e6ed057f782c"), alt: "Aurora Halo Pendant glowing over a dining table" },
       { type: "video", src: V_BUNNY_2, poster: poster("photo-1513506003901-1e6a229e2d15"), alt: "Halo light sequence in motion" },
@@ -114,6 +125,9 @@ export const PRODUCTS: Product[] = [
       "Available in 6 weaves & 14 colours",
     ],
     facilitiesLine: "Also available for hotels & facilities",
+    hotelPriceExclusive: "₹72,000/unit",
+    hotelPriceInclusive: "₹84,960/unit",
+    hotelPriceNote: "Hospitality grade performance bouclé",
     media: [
       { type: "image", src: img("photo-1555041469-a586c61ea9bc"), alt: "Cloud Nine sofa in a bright living room" },
       { type: "video", src: V_JELLY_5, poster: poster("photo-1493663284031-b7e3aefcae8e"), alt: "Fabric texture close-up footage" },
@@ -141,6 +155,9 @@ export const PRODUCTS: Product[] = [
       "Indoor & covered-outdoor rated",
     ],
     facilitiesLine: "Also available for hotels & facilities",
+    hotelPriceExclusive: "₹27,600/unit",
+    hotelPriceInclusive: "₹32,568/unit",
+    hotelPriceNote: "Lobby & suite contract specifications",
     media: [
       { type: "image", src: img("photo-1567538096630-e0c55bd6374c"), alt: "Obsidian chair in a styled room" },
       { type: "video", src: V_BUNNY_5, poster: poster("photo-1586023492125-27b2c045efd7"), alt: "Swivel motion demonstration" },
@@ -167,6 +184,9 @@ export const PRODUCTS: Product[] = [
       "Matching shams & runner included",
     ],
     facilitiesLine: "Also available for hotels & facilities",
+    hotelPriceExclusive: "₹14,900/set",
+    hotelPriceInclusive: "₹17,582/set",
+    hotelPriceNote: "Resort suite linen bulk orders",
     media: [
       { type: "image", src: img("photo-1505693416388-ac5ce068fe85"), alt: "Nimbus silk bedding on a made bed" },
       { type: "video", src: V_JELLY_2, poster: poster("photo-1538688525198-9b88f6f53126"), alt: "Silk drape movement footage" },
@@ -194,6 +214,9 @@ export const PRODUCTS: Product[] = [
       "Dishwasher-safe (top rack)",
     ],
     facilitiesLine: "Also available for hotels & facilities",
+    hotelPriceExclusive: "₹5,200/set",
+    hotelPriceInclusive: "₹6,136/set",
+    hotelPriceNote: "Turnkey banquet & tabletop decor",
     media: [
       { type: "image", src: img("photo-1416879595882-3373a0480b5b"), alt: "Prism vases with fresh stems" },
       { type: "video", src: V_FLOWER, poster: poster("photo-1543198126-a8ad8e47fb22"), alt: "Light refraction through crystal" },
@@ -205,6 +228,47 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+// ---------- 7a. Terms & Conditions of Seller ----------
+
+export interface TermItem {
+  id: number;
+  title: string;
+  detail: string;
+}
+
+export const TERMS_AND_CONDITIONS: TermItem[] = [
+  {
+    id: 1,
+    title: "Payment Terms",
+    detail: "50% advance upon order confirmation, balance 50% prior to dispatch. Direct bank transfer (NEFT/RTGS/IMPS) accepted.",
+  },
+  {
+    id: 2,
+    title: "Delivery & Lead Time",
+    detail: "Standard inventory dispatched in 2–4 business days. Custom architectural / hotel orders require 12–18 business days depending on volume.",
+  },
+  {
+    id: 3,
+    title: "Returns & Replacements",
+    detail: "All consignments are transit-insured. 100% replacement guaranteed for transit damage reported with unboxing video within 48 hours.",
+  },
+  {
+    id: 4,
+    title: "MOQ & Customization Policy",
+    detail: "Minimum Order Quantities apply per variant. Bespoke canopy heights, finishes, and contract packaging available for bulk orders.",
+  },
+  {
+    id: 5,
+    title: "GST & Commercial Taxes",
+    detail: "All quotes and orders are billed with official GST tax invoices eligible for full B2B input tax credit.",
+  },
+  {
+    id: 6,
+    title: "Validity of Prices",
+    detail: "Quoted catalog and wholesale prices remain valid for 30 calendar days from the date of WhatsApp or email quote generation.",
+  },
+];
+
 // ---------- helpers used across components ----------
 
 /** Anchor URL for a product, e.g. https://site.com/#product-01 */
@@ -213,8 +277,19 @@ export function productShareUrl(product: Product): string {
   return `${window.location.origin}${window.location.pathname}#${product.id}`;
 }
 
-export function productInquiryMessage(product: Product): string {
-  return `Hi ${BUSINESS.name}! I'm interested in *${product.name}* (${product.price}). Please share catalogue, MOQ and delivery details.`;
+export function productInquiryMessage(
+  product: Product,
+  hotelPricingOption?: "Exclusive" | "Inclusive",
+): string {
+  let msg = `Hi ${BUSINESS.name}! I'm interested in *${product.name}* (${product.price}). Please share catalogue, MOQ and delivery details.`;
+  if (hotelPricingOption) {
+    const priceStr =
+      hotelPricingOption === "Inclusive"
+        ? product.hotelPriceInclusive
+        : product.hotelPriceExclusive;
+    msg += `\n(Hotel/Facility Pricing: ${hotelPricingOption}${priceStr ? ` · ${priceStr}` : ""})`;
+  }
+  return msg;
 }
 
 export function buildWhatsAppLink(text: string): string {
