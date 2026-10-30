@@ -309,3 +309,25 @@
     animation: none;
   }
 }
+
+/* 4-Card Responsive Media Carousel Dimensions: exactly fits with 0 overflow on every screen */
+.media-slide-card {
+  width: calc(85% - 8px);
+  flex-shrink: 0;
+}
+@media (min-width: 640px) {
+  .media-slide-card {
+    width: calc((100% - 8px) / 2);
+  }
+}
+@media (min-width: 768px) {
+  .media-slide-card {
+    width: calc((100% - 16px) / 3);
+  }
+}
+@media (min-width: 1024px) {
+  .media-slide-card {
+    width: calc((100% - 24px) / 4);
+  }
+}
+
