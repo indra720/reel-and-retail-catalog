@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
     id: "product-03",
     index: "03",
     name: "Obsidian Accent Chair",
-    subtitle: "Sculpted shell chair with smoked-glass lacquer finish",
+    subtitle: "Sculptulated shell chair with smoked-glass lacquer finish",
     category: "furniture",
     price: "₹34,500",
     priceNote: "per unit",
