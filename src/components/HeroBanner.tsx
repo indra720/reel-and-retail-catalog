@@ -54,7 +54,9 @@ export function HeroBanner({
 
           {/* Subtitle */}
           <p className="text-xs sm:text-base leading-relaxed text-stone-600 max-w-xl font-normal">
-            Increase your conversions dramatically by showing high-definition live videos and crisp photos to your clients. Bring luxury furniture, lighting, and decor to life with instant WhatsApp wholesale inquiries.
+            Increase your conversions dramatically by showing high-definition live videos and crisp
+            photos to your clients. Bring luxury furniture, lighting, and decor to life with instant
+            WhatsApp wholesale inquiries.
           </p>
 
           {/* Value Props Pills */}
