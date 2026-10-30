@@ -6,6 +6,7 @@ import { BackgroundFX } from "@/components/BackgroundFX";
 import { CategoryNav } from "@/components/CategoryNav";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { HeroBanner } from "@/components/HeroBanner";
 import { ProductSection } from "@/components/ProductSection";
 import { TermsAndConditions } from "@/components/TermsAndConditions";
 import { FloatingWhatsApp } from "@/components/WhatsAppButton";
@@ -15,17 +16,17 @@ import { useProductAutoScroll } from "@/hooks/use-product-auto-scroll";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LUMINA Living — Luxury Product Catalog" },
+      { title: "LUMINA Living — Double Your Sales with Video Catalogs" },
       {
         name: "description",
         content:
-          "Curated catalog of premium lighting, furniture, decor and textiles for homes, hotels & facilities — with direct WhatsApp inquiries.",
+          "Sales: Jo dikhta hai wo bikta hai. Double your sales by showing live videos and HD photos of your products directly to clients with WhatsApp inquiries.",
       },
-      { property: "og:title", content: "LUMINA Living — Luxury Product Catalog" },
+      { property: "og:title", content: "LUMINA Living — Luxury Video Product Catalog" },
       {
         property: "og:description",
         content:
-          "Curated catalog of premium lighting, furniture, decor and textiles for homes, hotels & facilities.",
+          "Curated luxury lighting, furniture, decor & textiles with live video reels and hotel pricing.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -36,9 +37,12 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [category, setCategory] = useState<CategoryId>("all");
+  const [isTrainingOpen, setIsTrainingOpen] = useState(false);
+  const [isPricingOpen, setIsPricingOpen] = useState(false);
+  const [isCustomerCareOpen, setIsCustomerCareOpen] = useState(false);
 
-  // 6. AUTO-MOVE BETWEEN PRODUCTS: 20s idle gentle auto-scroll, pauses on action
-  useProductAutoScroll(true);
+  // Website page does NOT auto-scroll (disabled as per user instruction: product gallery handles its own movement)
+  useProductAutoScroll(false);
 
   const products =
     category === "all" ? PRODUCTS : PRODUCTS.filter((product) => product.category === category);
@@ -46,18 +50,32 @@ function Index() {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-[#F8F5F0]">
       <BackgroundFX />
-      <Header />
+      <Header
+        isTrainingOpen={isTrainingOpen}
+        setIsTrainingOpen={setIsTrainingOpen}
+        isPricingOpen={isPricingOpen}
+        setIsPricingOpen={setIsPricingOpen}
+        isCustomerCareOpen={isCustomerCareOpen}
+        setIsCustomerCareOpen={setIsCustomerCareOpen}
+      />
 
       <main className="relative z-10 mx-auto max-w-[1500px] px-3.5 pb-12 pt-4 sm:px-5 lg:px-5">
+        {/* First Impression Hero Banner: "Double Your Sales by Showing Videos of your Products" */}
+        <HeroBanner
+          onOpenTraining={() => setIsTrainingOpen(true)}
+          onOpenPricing={() => setIsPricingOpen(true)}
+          onOpenCustomerCare={() => setIsCustomerCareOpen(true)}
+        />
+
         {/* Category Navigation Bar matching Wireframe: Category : [ ] [ ] [ ] [ ] */}
-        <div className="flex flex-wrap items-center gap-3 border-b border-[#E8E2D8] pb-3 mb-2">
+        <div id="solutions" className="flex flex-wrap items-center gap-3 border-b border-[#E8E2D8] pb-3 mb-2">
           <span className="text-xs font-bold uppercase tracking-wider text-stone-500">
             Category :
           </span>
           <CategoryNav categories={CATEGORIES} active={category} onChange={setCategory} />
         </div>
 
-        {/* Vertical Stack of Products (Up & Down Scroll as in wireframe) */}
+        {/* Vertical Stack of Products (Manual page scrolling) */}
         {products.length > 0 ? (
           <div className="space-y-3">
             {products.map((product) => (
