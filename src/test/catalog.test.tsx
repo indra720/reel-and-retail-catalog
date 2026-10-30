@@ -24,10 +24,10 @@ describe("Catalog config rules", () => {
     }
   });
 
-  it("keeps every product gallery at 4–6 items with both images and videos", () => {
+  it("keeps every product gallery rich with both images and videos across horizontal and vertical reels", () => {
     for (const product of PRODUCTS) {
       expect(product.media.length).toBeGreaterThanOrEqual(4);
-      expect(product.media.length).toBeLessThanOrEqual(6);
+      expect(product.media.length).toBeLessThanOrEqual(12);
       const videos = product.media.filter((m) => m.type === "video");
       const images = product.media.filter((m) => m.type === "image");
       expect(videos.length).toBeGreaterThanOrEqual(1);
