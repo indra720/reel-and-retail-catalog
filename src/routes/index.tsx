@@ -16,11 +16,11 @@ import { useProductAutoScroll } from "@/hooks/use-product-auto-scroll";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LUMINA Living — Double Your Sales with Video Catalogs" },
+      { title: "LUMINA Living — Luxury Video Product Catalog" },
       {
         name: "description",
         content:
-          "Sales: Jo dikhta hai wo bikta hai. Double your sales by showing live videos and HD photos of your products directly to clients with WhatsApp inquiries.",
+          "Curated luxury lighting, furniture, decor & textiles with live video reels and hotel pricing.",
       },
       { property: "og:title", content: "LUMINA Living — Luxury Video Product Catalog" },
       {
@@ -37,12 +37,9 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [category, setCategory] = useState<CategoryId>("all");
-  const [isTrainingOpen, setIsTrainingOpen] = useState(false);
-  const [isPricingOpen, setIsPricingOpen] = useState(false);
-  const [isCustomerCareOpen, setIsCustomerCareOpen] = useState(false);
 
-  // Website page does NOT auto-scroll (disabled as per user instruction: product gallery handles its own movement)
-  useProductAutoScroll(false);
+  // 6. AUTO-MOVE BETWEEN PRODUCTS: Gently auto-scrolls to next product after 20s of inactivity
+  useProductAutoScroll(true);
 
   const products =
     category === "all" ? PRODUCTS : PRODUCTS.filter((product) => product.category === category);
@@ -50,24 +47,13 @@ function Index() {
   return (
     <div className="relative min-h-screen overflow-x-clip bg-[#F8F5F0]">
       <BackgroundFX />
-      <Header
-        isTrainingOpen={isTrainingOpen}
-        setIsTrainingOpen={setIsTrainingOpen}
-        isPricingOpen={isPricingOpen}
-        setIsPricingOpen={setIsPricingOpen}
-        isCustomerCareOpen={isCustomerCareOpen}
-        setIsCustomerCareOpen={setIsCustomerCareOpen}
-      />
+      <Header />
 
       <main className="relative z-10 mx-auto max-w-[1500px] px-3.5 pb-12 pt-4 sm:px-5 lg:px-5">
-        {/* First Impression Hero Banner: "Double Your Sales by Showing Videos of your Products" */}
-        <HeroBanner
-          onOpenTraining={() => setIsTrainingOpen(true)}
-          onOpenPricing={() => setIsPricingOpen(true)}
-          onOpenCustomerCare={() => setIsCustomerCareOpen(true)}
-        />
+        {/* Client & Product Showcase Hero Card */}
+        <HeroBanner />
 
-        {/* Category Navigation Bar matching Wireframe: Category : [ ] [ ] [ ] [ ] */}
+        {/* Category Navigation Bar */}
         <div id="solutions" className="flex flex-wrap items-center gap-3 border-b border-[#E8E2D8] pb-3 mb-2">
           <span className="text-xs font-bold uppercase tracking-wider text-stone-500">
             Category :
