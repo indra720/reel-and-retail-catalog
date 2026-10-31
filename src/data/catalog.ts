@@ -15,6 +15,11 @@ export const BUSINESS = {
   address: "Shop 14, Trade Crest, MG Road, Indore, MP 452001",
   hotelAddressLabel: "Hotel",
   hotelAddress: "Suites 4-6, Grand Palm Galleria, Vijay Nagar, Indore, MP 452010",
+  googleMapsUrl:
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent("Suites 4-6, Grand Palm Galleria, Vijay Nagar, Indore, MP 452010"),
+  clientName: "Ajeet Singh (Sudo Tech)",
+  featuredProduct: "Aurora Halo Pendant",
   phone: "+91 98765 43210",
   email: "hello@luminaliving.in",
   established: "2016",
@@ -252,6 +257,96 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+// ---------- Client Reviews & Video Showcases (Hero Section Slider) ----------
+
+export interface ClientShowcase {
+  id: string;
+  shopName: string;
+  clientName?: string;
+  clientRole?: string;
+  clientAvatar?: string;
+  location?: string;
+  productName: string;
+  rating?: number;
+  review?: string;
+  media: {
+    type: "video" | "image";
+    src: string;
+    poster?: string;
+    alt?: string;
+  };
+}
+
+export const CLIENT_SHOWCASES: ClientShowcase[] = [
+  {
+    id: "showcase-1",
+    shopName: "SUDO TECH STUDIO",
+    clientName: "Ajeet Singh",
+    clientRole: "CEO, Sudo Tech",
+    location: "Indore, MP",
+    productName: "Aurora Halo Pendant",
+    rating: 5,
+    review:
+      "Ordered 12 halo pendants for our executive floor. The live video catalog allowed our board to approve the dimming tones instantly without physical samples.",
+    media: {
+      type: "video",
+      src: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_2MB.mp4",
+      poster: poster("photo-1507473885765-e6ed057f782c"),
+      alt: "Aurora Halo Pendant in executive boardroom",
+    },
+  },
+  {
+    id: "showcase-2",
+    shopName: "GRAND PALM HOTEL & SUITES",
+    clientName: "Priya Sharma",
+    clientRole: "Head of Procurement, Grand Palm Hotel",
+    location: "Mumbai, MH",
+    productName: "Cloud Nine Modular Sofa",
+    rating: 5,
+    review:
+      "Furnished 18 luxury hotel suites with Cloud Nine modular bouclé sofas. The fabric stain-guard and commercial pricing options were transparent and delivered right on time.",
+    media: {
+      type: "video",
+      src: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_2MB.mp4",
+      poster: poster("photo-1555041469-a586c61ea9bc"),
+      alt: "Cloud Nine sofa in hotel lobby suite",
+    },
+  },
+  {
+    id: "showcase-3",
+    shopName: "STUDIO VISTARA ARCHITECTS",
+    clientName: "Vikram Patel",
+    clientRole: "Principal Architect, Studio Vistara",
+    location: "Ahmedabad, GJ",
+    productName: "Obsidian Accent Chair",
+    rating: 5,
+    review:
+      "Seven-layer hand-polished lacquer finish looks even better in real life than 3D renders. The 360° return memory swivel is rock solid. Our clients love it.",
+    media: {
+      type: "image",
+      src: img("photo-1567538096630-e0c55bd6374c"),
+      alt: "Obsidian chair in architect designed lounge",
+    },
+  },
+  {
+    id: "showcase-4",
+    shopName: "HERITAGE RESIDENCES",
+    clientName: "Ananya Roy",
+    clientRole: "General Manager, Heritage Residences",
+    location: "Jaipur, RJ",
+    productName: "Nimbus Silk Bedding Set",
+    rating: 5,
+    review:
+      "Supplied 25 luxury suites. The 22-momme Grade-6A mulberry silk has an incredible drape and cooling feel. Best wholesale linen procurement experience so far.",
+    media: {
+      type: "video",
+      src: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_2MB.mp4",
+      poster: poster("photo-1505693416388-ac5ce068fe85"),
+      alt: "Nimbus silk bedding in presidential suite",
+    },
+  },
+];
+
 // ---------- 7a. Terms & Conditions of Seller ----------
 
 export interface TermItem {
@@ -311,7 +406,7 @@ export function productInquiryMessage(
       hotelPricingOption === "Inclusive"
         ? product.hotelPriceInclusive
         : product.hotelPriceExclusive;
-    msg += `\n(Hotel/Facility Pricing: ${hotelPricingOption}${priceStr ? ` · ${priceStr}` : ""})`;
+    msg += `\n(Facility Pricing: ${hotelPricingOption}${priceStr ? ` · ${priceStr}` : ""})`;
   }
   return msg;
 }

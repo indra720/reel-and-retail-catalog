@@ -113,7 +113,7 @@ export function ProductDetails({ product }: { product: Product }) {
             <div>
               <div className="flex flex-wrap items-baseline gap-1.5">
                 <span className="text-[11px] font-bold text-stone-800">
-                  Hotels & Facilities:
+                  Facilities:
                 </span>
                 <span className="text-xs font-bold text-[#8A6331]">
                   {hotelPricing === "Inclusive"
